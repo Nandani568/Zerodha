@@ -10,19 +10,19 @@ This is a sample `Go` application which connects to Redis. The app increments a 
 - Set the environment variables:
   - `DEMO_APP_ADDR`: Address where the app should listen to
   - `DEMO_REDIS_ADDR`: Address where Redis is running
-
-## Tasks
+export both the value of the variable
+## Tasks [ Dockerfile]
 
 - Create a `Dockerfile` for the app.
 
-- Create a `docker-compose.yml` for the app which includes the following:
+- Create a `docker-compose.yml` for the app which includes the following: [docker-compose.yml file]
   - `redis` service, with data directory mounted.
   - `app` service, ensuring that it has a dependency on the Redis service starting correctly.
   - `nginx` service acting as a reverse proxy for the app. Bonus: Implement SSL using self-signed certificates.
 
 - Write a bash script to set up a [Vagrant box](https://vagrant.io) with Ubuntu. Ensure the script has error checks and is idempotent.
 
-- Using Ansible provision the VM to:
+- Using Ansible provision the VM to: [ ansible-playbook.yml]
   - Setup hostname of VM as `demo-ops`.
   - Create a user `demo`.
   - Harden the security:
@@ -38,7 +38,7 @@ This is a sample `Go` application which connects to Redis. The app increments a 
   - Deploy the `docker-compose.yml` in `/etc/demo-ops` and start the services.
   - Bonus: Install and configure monitoring tools like Prometheus and Grafana. Ensure app and redis metrics are being scraped.
 
-- Commit the scripts to Github and share the link.
+- Commit the scripts to Github and share the link. [provision.sh]
 
 ### Bonus Section
 
