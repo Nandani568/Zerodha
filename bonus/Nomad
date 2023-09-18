@@ -1,0 +1,61 @@
+Create emo-app.nomad file
+
+job "demo-app" {
+  datacenters = ["dc1"]
+  type        = "service"
+
+  group "app" {
+    count = 1
+
+    task "web" {
+      driver = "docker"
+
+      config {
+        image = "your-registry/your-app-image:tag"
+        ports = [8080]
+      }
+
+      resources {
+        cpu    = 500
+        memory = 256
+      }
+
+      service {
+        name = "demo-app"
+        port = "web"
+        check {
+          type     = "http"
+          path     = "/healthz"
+          interval = "10s"
+        }
+      }
+    }
+  }
+
+  group "redis" {
+    count = 1
+
+    task "redis" {
+      driver = "docker"
+
+      config {
+        image = "redis:latest"
+        ports = [6379]
+      }
+
+      resources {
+        cpu    = 100
+        memory = 64
+      }
+    }
+  }
+}
+
+
+command for local dev:  nomad agent -dev
+
+
+Submit the nomad job:
+
+nomad job run demo-app.nomad
+
