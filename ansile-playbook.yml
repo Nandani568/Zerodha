@@ -1,0 +1,9 @@
+---
+- name: Provision demo-ops VM
+  hosts: demo-ops
+  become: yes
+
+  tasks:
+    - name: Set hostname to demo-ops
+      hostname:
+        name: demo-ops
