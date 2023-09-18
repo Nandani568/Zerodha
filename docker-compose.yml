@@ -1,0 +1,23 @@
+version: '3'
+services:
+  redis:
+    image: redis:latest
+    volumes:
+      - ./redis-data:/data
+
+  app:
+    build:
+      context: .
+    environment:
+      DEMO_APP_ADDR: "0.0.0.0:8080"
+      DEMO_REDIS_ADDR: "redis:6379"
+    depends_on:
+      - redis
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    # Implement SSL using self-signed certificates here (bonus task).
